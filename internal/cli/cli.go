@@ -5,13 +5,14 @@ import (
 
 	"github.com/LiddleChild/slingshot/internal/cli/handler/conn"
 	"github.com/LiddleChild/slingshot/internal/cli/parser"
+	"github.com/LiddleChild/slingshot/internal/container"
 	"github.com/LiddleChild/slingshot/internal/util/logger"
 )
 
-func Start() {
+func Start(container *container.Container) {
 	parser := parser.NewParser()
 
-	connHandler := conn.NewHandler()
+	connHandler := conn.NewHandler(container.ConnService)
 
 	parser.Noun("conn").Verb("list", connHandler.List)
 

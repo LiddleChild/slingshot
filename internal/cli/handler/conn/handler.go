@@ -4,15 +4,26 @@ import (
 	"fmt"
 
 	"github.com/LiddleChild/slingshot/internal/cli/parser"
+	"github.com/LiddleChild/slingshot/internal/core/conn"
 )
 
-type Handler struct{}
+type Handler struct {
+	svc *conn.Service
+}
 
-func NewHandler() *Handler {
-	return &Handler{}
+func NewHandler(svc *conn.Service) *Handler {
+	return &Handler{svc}
 }
 
 func (h *Handler) List(param *parser.Param) error {
-	fmt.Println("list connections")
+	connections, err := h.svc.GetAllConnections()
+	if err != nil {
+		return err
+	}
+
+	for _, conn := range connections {
+		fmt.Println(conn.Name)
+	}
+
 	return nil
 }
