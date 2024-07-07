@@ -16,7 +16,8 @@ func Start(container *container.Container) {
 
 	parser.Noun("conn").
 		Verb("list", connHandler.List).
-		Verb("create", connHandler.Create)
+		Verb("create", connHandler.Create).
+		Verb("remove", connHandler.Remove)
 
 	err := parser.Parse(os.Args)
 	if err != nil {

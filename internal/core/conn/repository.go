@@ -53,3 +53,19 @@ func (r *Repository) CreateConnection(conn models.Connection) (string, error) {
 
 	return newConn, nil
 }
+
+func (r *Repository) RemoveConnection(name string) (string, error) {
+	query := `
+		DELETE FROM connections
+		WHERE connections.name = $1
+		RETURNING name
+	`
+
+	var removedConn string
+	err := r.db.QueryRow(query, name).Scan(&removedConn)
+	if err != nil {
+		return "", err
+	}
+
+	return removedConn, nil
+}

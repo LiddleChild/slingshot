@@ -50,3 +50,19 @@ func (h *Handler) Create(param *parser.Param) error {
 
 	return nil
 }
+
+func (h *Handler) Remove(param *parser.Param) error {
+	name, ok := param.Next()
+	if !ok {
+		return errors.New("conn remove <name>")
+	}
+
+	removedConn, err := h.svc.RemoveConnnection(name)
+	if err != nil {
+		return err
+	}
+
+	logger.Log(fmt.Sprintf("Removed %s", removedConn))
+
+	return nil
+}

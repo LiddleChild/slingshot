@@ -17,3 +17,7 @@ func (s *Service) GetAllConnections() ([]models.Connection, error) {
 func (s *Service) CreateConnnection(conn models.Connection) (string, error) {
 	return s.repo.CreateConnection(conn)
 }
+
+func (s *Service) RemoveConnnection(name string) (string, error) {
+	return s.repo.RemoveConnection(name)
+}
