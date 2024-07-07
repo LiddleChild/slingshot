@@ -37,3 +37,19 @@ func (r *Repository) GetAllConnections() ([]models.Connection, error) {
 
 	return connections, err
 }
+
+func (r *Repository) CreateConnection(conn models.Connection) (string, error) {
+	query := `
+		INSERT INTO connections (name)
+		VALUES ($1)
+		RETURNING name
+	`
+
+	var newConn string
+	err := r.db.QueryRow(query, conn.Name).Scan(&newConn)
+	if err != nil {
+		return "", err
+	}
+
+	return newConn, nil
+}

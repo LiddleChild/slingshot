@@ -13,3 +13,7 @@ func NewService(repo *Repository) *Service {
 func (s *Service) GetAllConnections() ([]models.Connection, error) {
 	return s.repo.GetAllConnections()
 }
+
+func (s *Service) CreateConnnection(conn models.Connection) (string, error) {
+	return s.repo.CreateConnection(conn)
+}

@@ -14,7 +14,9 @@ func Start(container *container.Container) {
 
 	connHandler := conn.NewHandler(container.ConnService)
 
-	parser.Noun("conn").Verb("list", connHandler.List)
+	parser.Noun("conn").
+		Verb("list", connHandler.List).
+		Verb("create", connHandler.Create)
 
 	err := parser.Parse(os.Args)
 	if err != nil {

@@ -35,7 +35,10 @@ func (p *Parser) Noun(noun string) *Action {
 }
 
 func (act *Action) Verb(verb string, handler ActionHandler) *Action {
-	act.parser.handlers[act.noun] = map[string]ActionHandler{}
+	if _, ok := act.parser.handlers[act.noun]; !ok {
+		act.parser.handlers[act.noun] = map[string]ActionHandler{}
+	}
+
 	act.parser.handlers[act.noun][verb] = handler
 	return act
 }
