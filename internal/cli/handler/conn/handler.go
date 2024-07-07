@@ -1,10 +1,9 @@
 package conn
 
 import (
-	"fmt"
-
 	"github.com/LiddleChild/slingshot/internal/cli/parser"
 	"github.com/LiddleChild/slingshot/internal/core/conn"
+	"github.com/LiddleChild/slingshot/internal/util/logger"
 )
 
 type Handler struct {
@@ -22,7 +21,7 @@ func (h *Handler) List(param *parser.Param) error {
 	}
 
 	for _, conn := range connections {
-		fmt.Println(conn.Name)
+		logger.Log(conn.Name)
 	}
 
 	return nil
