@@ -25,7 +25,7 @@ func (h *Handler) List(param *parser.Param) error {
 	}
 
 	for _, conn := range connections {
-		logger.Log(conn.Name)
+		logger.Log(fmt.Sprintf("%s %s", conn.Name, conn.Url))
 	}
 
 	return nil
@@ -34,11 +34,17 @@ func (h *Handler) List(param *parser.Param) error {
 func (h *Handler) Create(param *parser.Param) error {
 	name, ok := param.Next()
 	if !ok {
-		return errors.New("conn create <name>")
+		return errors.New("conn create <name> <url>")
+	}
+
+	url, ok := param.Next()
+	if !ok {
+		return errors.New("conn create <name> <url>")
 	}
 
 	conn := models.Connection{
 		Name: name,
+		Url:  url,
 	}
 
 	newConn, err := h.svc.CreateConnnection(conn)
